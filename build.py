@@ -481,28 +481,28 @@ def has_photo(p):
 
 
 def product_media(p, depth="", detail=False):
-        css_class = "detail-media" if detail else "product-media"
-        photos = p.get("photos") or []
-        if not photos:
-                    return """<div class="{cls}">
-                              <img src="{d}assets/img/mark-blue.png" alt="">
-                                        <span class="photo-pending">Foto próximamente</span>
-                                                </div>""".format(cls=css_class, d=depth)
+    css_class = "detail-media" if detail else "product-media"
+    photos = p.get("photos") or []
+    if not photos:
+        return """<div class="{cls}">
+          <img src="{d}assets/img/mark-blue.png" alt="">
+          <span class="photo-pending">Foto próximamente</span>
+        </div>""".format(cls=css_class, d=depth)
 
     id_attr = ' id="gallery-main"' if detail else ""
     main_img = """<div class="{cls}">
-              <img{id_attr} src="{src}" alt="{title}" style="width:100%;height:100%;object-fit:contain;">
-                      </div>""".format(cls=css_class, id_attr=id_attr, src=photos[0], title=p["title"])
+          <img{id_attr} src="{src}" alt="{title}" style="width:100%;height:100%;object-fit:contain;">
+        </div>""".format(cls=css_class, id_attr=id_attr, src=photos[0], title=p["title"])
 
     if detail and len(photos) > 1:
-                thumbs = "\n          ".join(
-                                '<button class="gallery-thumb{active}" data-src="{src}"><img src="{src}" alt=""></button>'.format(
-                                                    src=src, active=" is-active" if i == 0 else ""
-                                )
-                                for i, src in enumerate(photos)
-                )
-                gallery = main_img + '\n        <div class="gallery-thumbs">\n          {thumbs}\n        </div>'.format(thumbs=thumbs)
-                return '<div class="detail-gallery">\n        {gallery}\n      </div>'.format(gallery=gallery)
+        thumbs = "\n          ".join(
+            '<button class="gallery-thumb{active}" data-src="{src}"><img src="{src}" alt=""></button>'.format(
+                src=src, active=" is-active" if i == 0 else ""
+            )
+            for i, src in enumerate(photos)
+        )
+        gallery = main_img + '\n        <div class="gallery-thumbs">\n          {thumbs}\n        </div>'.format(thumbs=thumbs)
+        return '<div class="detail-gallery">\n        {gallery}\n      </div>'.format(gallery=gallery)
 
     return main_img
 
