@@ -1,0 +1,10 @@
+---
+sku: NEVIS-03
+title: Morsa de Banco Giratoria 125 Mm Numero 5 con Yunque
+category: Morsa
+price: 69394
+mla: MLA-3579400098
+photos:
+- /assets/img/productos/NEVIS-03-1.jpg
+---
+La morsa de banco BRITZEN NEVIS-03 está diseñada para sujetar piezas de forma firme y segura durante trabajos de taller, mecánica, herrería, mantenimiento y reparaciones en general. Fabricada en hierro fundido, cuenta con mordazas de 125 mm (5") y una apertura máxima de aproximadamente 120 mm. Su base giratoria de 360° permite orientar la morsa según la posición de trabajo requerida, facilitando el acceso a la pieza sin necesidad de retirarla y volver a sujetarla. Además, incorpora un práctico yunque en la parte posterior, que proporciona una superficie de apoyo para pequeños trabajos de golpeado, enderezado y conformado de piezas metálicas. CARACTERÍSTICAS: Marca: BRITZEN Modelo: NEVIS-03 Tipo: Morsa de banco giratoria con yunque Medida: 5" Ancho de mordaza: 125 mm Apertura máxima: 120 mm aprox. Material: Hierro fundido Base: Giratoria 360° Medida de la base: 125 x 125 mm Yunque: Integrado Altura: 150 mm Largo: 280 mm Ancho: 125 mm Peso: 7,5 kg Origen: China PRINCIPALES VENTAJAS: Construcción robusta para trabajos de taller Mordazas de 125 mm para una sujeción firme Base giratoria 360° para facilitar el posicionamiento de la pieza Yunque integrado para trabajos complementarios Manija metálica para apertura y cierre de las mordazas Base preparada para fijación al banco de trabajo Diseñada para brindar firmeza y estabilidad durante el uso APLICACIONES: Ideal para talleres mecánicos, herrerías, mantenimiento industrial, carpintería y trabajos generales de reparación. Permite sujetar piezas para tareas de corte, limado, perforado, roscado, armado, ajuste y otros trabajos que requieran mantener la pieza firmemente posicionada.

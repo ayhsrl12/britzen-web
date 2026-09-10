@@ -1,0 +1,10 @@
+---
+sku: NEVIS-72
+title: Morsa para Fijar Giratoria 60 Mm con Yunque
+category: Morsa
+price: 20166
+mla: MLA-3834319350
+photos:
+- /assets/img/productos/NEVIS-72-1.jpg
+---
+La morsa de mesa BRITZEN NEVIS-72 está diseñada para sujetar piezas de forma firme y segura durante trabajos de precisión, mecánica liviana, joyería, electrónica, modelismo y reparaciones en general. Fabricada en fundición de hierro libre de fósforo e impurezas, cuenta con mordazas de 60 mm y una apertura máxima de 65 mm. Su base giratoria permite orientar la morsa según la posición de trabajo requerida, facilitando el acceso a la pieza sin necesidad de retirarla y volver a sujetarla. Además, incorpora un práctico yunque, que proporciona una superficie de apoyo para pequeños trabajos de golpeado, enderezado y conformado de piezas. Es la más reforzada del sitio en su categoría: comparala con otras opciones y consultanos, no vas a dudar en llevártela. CARACTERÍSTICAS: Marca: BRITZEN Modelo: NEVIS-72 Tipo: Morsa de mesa portátil giratoria con yunque Material: Fundición de hierro libre de fósforo e impurezas Ancho de mordaza: 60 mm Apertura de mordaza: 65 mm Apertura de agarre a la mesa: 45 mm Base: Giratoria Yunque: Integrado Largo total: 14 cm Ancho total: 7 cm Alto total: 17 cm Peso: 1,2 kg Origen: China PRINCIPALES VENTAJAS: Construcción robusta y reforzada, de alta resistencia y durabilidad Precisión en la sujeción de piezas pequeñas y medianas Base giratoria para facilitar el posicionamiento de la pieza Yunque integrado para trabajos complementarios Sistema de agarre a mesa que permite fijarla de forma portátil Diseñada para brindar firmeza y estabilidad durante el uso APLICACIONES: Ideal para trabajos de precisión, mecánica liviana, electrónica, joyería, modelismo y reparaciones generales. Permite sujetar piezas para tareas de corte, limado, perforado, ajuste y armado de componentes pequeños que requieran mantenerse firmemente posicionados. Apta para uso en talleres, hogares y espacios de trabajo reducidos gracias a su formato portátil.
