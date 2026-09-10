@@ -2,7 +2,7 @@ backend:
   name: github
   repo: ayhsrl12/britzen-web  
   branch: main
-  base_url: https://TU-PROXY.workers.dev   # ⚠️ reemplazar por la URL del OAuth proxy (paso 3)
+  base_url: https://britzen-decap-proxy.ventas-38a.workers.dev
   auth_endpoint: /auth
 
 # Las fotos que subas desde el panel se guardan acá:
