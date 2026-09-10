@@ -1,0 +1,56 @@
+backend:
+  name: github
+  repo: TU-USUARIO/TU-REPOSITORIO   # ⚠️ reemplazar por el usuario/repo real de GitHub
+  branch: main
+  base_url: https://TU-PROXY.workers.dev   # ⚠️ reemplazar por la URL del OAuth proxy (paso 3)
+  auth_endpoint: /auth
+
+# Las fotos que subas desde el panel se guardan acá:
+media_folder: "assets/img/productos"
+public_folder: "/assets/img/productos"
+
+collections:
+  - name: "productos"
+    label: "Productos"
+    folder: "content/productos"
+    create: true
+    slug: "{{fields.sku}}"
+    identifier_field: title
+    summary: "{{title}} — Cód. {{sku}}"
+    fields:
+      - { label: "Código (SKU)", name: "sku", widget: "string", hint: "El código interno del producto, ej. 1233 o NEVIS-22" }
+      - { label: "Título", name: "title", widget: "string" }
+      - label: "Categoría"
+        name: "category"
+        widget: "select"
+        options:
+          - "Prensa Válvula"
+          - "Juego de Llaves"
+          - "Compresómetro"
+          - "Estetoscopio"
+          - "Frenos"
+          - "Puesta a Punto"
+          - "Torquímetro"
+          - "Fresador"
+          - "Extractor"
+          - "Vacuómetro"
+          - "Suspensión"
+          - "Bomba Trasvase"
+          - "Sondas"
+          - "Embrague"
+          - "Refrigeración"
+          - "Morsa"
+        hint: "Si necesitás una categoría nueva que no está en la lista, avisá para agregarla (es un cambio de 1 línea en este archivo)."
+      - { label: "Precio (ARS, sin puntos ni signo $)", name: "price", widget: "number", value_type: "int", required: false, hint: "Dejar vacío si todavía no tiene precio (va a mostrar 'Precio próximamente')" }
+      - { label: "Código de Mercado Libre (MLA-...)", name: "mla", widget: "string", required: false, hint: "Ej: MLA-1234567890. Dejar vacío si no tiene publicación en ML." }
+      - label: "Fotos"
+        name: "photos"
+        widget: "list"
+        required: false
+        field: { label: "Foto", name: "image", widget: "image" }
+        hint: "Podés subir varias — la primera es la que se usa como foto principal en el catálogo."
+      - label: "Descripción completa"
+        name: "body"
+        widget: "text"
+        required: false
+        hint: "Texto libre. Si escribís secciones como 'CARACTERÍSTICAS:', 'APLICACIONES:', 'IMPORTANTE:', el sitio las va a ordenar solo en bloques prolijos."
