@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: TU-USUARIO/TU-REPOSITORIO   # ⚠️ reemplazar por el usuario/repo real de GitHub
+  repo: ayhsrl12/britzen-web  
   branch: main
   base_url: https://TU-PROXY.workers.dev   # ⚠️ reemplazar por la URL del OAuth proxy (paso 3)
   auth_endpoint: /auth
