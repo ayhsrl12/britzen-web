@@ -21,3 +21,6 @@ La carpeta de salida es `dist/`.
 ## Pendiente de completar en admin/config.yml
 - `repo:` → poner `usuario-de-github/nombre-del-repositorio`
 - `base_url:` → poner la URL del OAuth proxy (Cloudflare Worker) una vez desplegado
+
+## Estado
+Conectado a Cloudflare para publicación automática.
