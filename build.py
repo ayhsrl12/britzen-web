@@ -13,6 +13,7 @@ HOURS = "Lunes a viernes de 8 a 17 hs"
 MAPS_EMBED_SRC = "https://www.google.com/maps?q=-34.6486792,-58.3715902(ACCESORIOS+Y+HERRAMIENTAS+SRL)&z=16&output=embed"
 MAPS_LINK = "https://maps.app.goo.gl/GENGg2YMNFfKcSaY7"
 REVIEWS_URL = "https://www.google.com/search?q=Accesorios+y+Herramientas+SRL+opiniones"
+YOUTUBE_VIDEO_ID = ""  # Pegar acá el ID del video de YouTube. Vacío = no se muestra la sección.
 
 # Reseñas reales de Google de Accesorios y Herramientas SRL (quienes traen Britzen a
 # Argentina) — 4.9/5, 109 opiniones al momento de la consulta.
@@ -551,7 +552,21 @@ def build_home():
     featured_skus = ["1233", "8331", "1147", "1702"]
     featured_products = [p for sku in featured_skus for p in PRODUCTS if p["sku"] == sku]
     featured = "\n      ".join(product_card(p) for p in featured_products)
-
+    video_section = ""
+    if YOUTUBE_VIDEO_ID:
+        video_section = """<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Mirá nuestras herramientas en acción</h2>
+        <p class="sub">Un recorrido rápido por el catálogo real, para que veas la calidad antes de consultar.</p>
+      </div>
+    </div>
+    <div class="video-embed">
+      <iframe src="https://www.youtube.com/embed/{vid}" title="Britzen catalogo de herramientas" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>""".format(vid=YOUTUBE_VIDEO_ID)
     review_cards = ""
     for r in REVIEWS:
         initial = r["author"][0]
@@ -609,7 +624,7 @@ def build_home():
     </div>
   </div>
 </section>
-
+{video_section}
 <section class="section bg-steel">
   <div class="wrap">
     <div class="section-head">
@@ -629,7 +644,7 @@ def build_home():
 {reviews}    </div>
   </div>
 </section>""".format(wa=wa_link("Hola, quiero consultar por Britzen"), tiles=cat_tiles, featured=featured,
-                     score=REVIEWS_SCORE, count=REVIEWS_COUNT, reviews_url=REVIEWS_URL, reviews=review_cards)
+                     score=REVIEWS_SCORE, count=REVIEWS_COUNT, reviews_url=REVIEWS_URL, reviews=review_cards, video_section=video_section)
 
     write("index.html", page("Herramientas para taller mecánico y automotor", "Britzen — extractores, prensas y compresores para taller mecánico y automotor en Argentina. Catálogo y contacto directo por WhatsApp.", "inicio", body, canonical_path=""))
 
