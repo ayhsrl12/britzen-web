@@ -1,3 +1,5 @@
 banners:
   - image: /assets/img/productos/banner-extractores.png
+    link: https://britzen.com.ar/catalogo#extractor
   - image: /assets/img/productos/banner-compresometros.jfif
+    link: https://britzen.com.ar/catalogo#compresometro
