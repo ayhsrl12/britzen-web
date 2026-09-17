@@ -989,4 +989,24 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   overflow: hidden;
   box-shadow: 0 20px 50px rgba(11, 11, 11, 0.15);
 }
-.video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }.hero-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--black);
+}
+.carousel-viewport { width: 100%; overflow: hidden; }
+.carousel-track { display: flex; transition: transform 0.6s ease; }
+.carousel-slide { flex: 0 0 100%; width: 100%; }
+.carousel-slide img { width: 100%; height: auto; max-height: 520px; object-fit: cover; display: block; }
+.carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(11,11,11,0.45); color: var(--white); border: none; width: 44px; height: 44px; border-radius: 50%; font-size: 26px; line-height: 1; cursor: pointer; z-index: 2; display: flex; align-items: center; justify-content: center; }
+.carousel-arrow:hover { background: var(--blue); }
+.carousel-prev { left: 16px; }
+.carousel-next { right: 16px; }
+.carousel-dots { position: absolute; bottom: 16px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; z-index: 2; }
+.carousel-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.5); border: none; padding: 0; cursor: pointer; transition: all 0.2s ease; }
+.carousel-dot.is-active { background: var(--white); width: 24px; border-radius: 5px; }
+@media (max-width: 640px) {
+  .carousel-arrow { width: 34px; height: 34px; font-size: 20px; }
+  .carousel-slide img { max-height: 280px; }
+}
