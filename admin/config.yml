@@ -54,3 +54,18 @@ collections:
         widget: "text"
         required: false
         hint: "Texto libre. Si escribís secciones como 'CARACTERÍSTICAS:', 'APLICACIONES:', 'IMPORTANTE:', el sitio las va a ordenar solo en bloques prolijos."
+  - name: "inicio"
+    label: "Página de inicio"
+    files:
+      - file: "content/home.yml"
+        label: "Banners del carrusel"
+        name: "home"
+        fields:
+          - label: "Banners del carrusel (arriba de todo)"
+            name: "banners"
+            widget: "list"
+            required: false
+            hint: "El primero de la lista se muestra primero. Se pueden reordenar arrastrando."
+            fields:
+              - {label: "Imagen", name: "image", widget: "image"}
+              - {label: "Link al hacer clic (opcional)", name: "link", widget: "string", required: false, hint: "A dónde va la persona si toca este banner (ej. https://britzen.com.ar/catalogo.html). Dejar vacío si no querés que sea clickeable."}
