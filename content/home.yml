@@ -1,1 +1,3 @@
-banners: []
+banners:
+  - image: /assets/img/productos/banner-extractores.png
+  - image: /assets/img/productos/banner-compresometros.jfif
