@@ -111,7 +111,36 @@ def load_master_products(content_dir):
             "photos": photos,
         })
     return records
+def load_banners(path):
+    import yaml
+    if not os.path.exists(path):
+        return []
+    with open(path, encoding="utf-8") as f:
+        data = yaml.safe_load(f) or {}
+    raw_banners = data.get("banners") or []
+    return [b for b in raw_banners if b.get("image")]
 
+def render_banner_carousel(banners):
+    if not banners:
+        return ""
+    slides = []
+    dots = []
+    for i, b in enumerate(banners):
+        active = " is-active" if i == 0 else ""
+        loading = "eager" if i == 0 else "lazy"
+        img_tag = '<img src="{src}" alt="" loading="{loading}">'.format(src=b["image"], loading=loading)
+        if b.get("link"):
+            slide = '<a class="carousel-slide" href="{href}">{img}</a>'.format(href=b["link"], img=img_tag)
+        else:
+            slide = '<div class="carousel-slide">{img}</div>'.format(img=img_tag)
+        slides.append(slide)
+        dots.append('<button class="carousel-dot{active}" data-index="{i}" aria-label="Ir al banner {n}"></button>'.format(active=active, i=i, n=i + 1))
+    nav = ""
+    if len(banners) > 1:
+        dots_html = "\n      ".join(dots)
+        nav = '<button class="carousel-arrow carousel-prev" aria-label="Anterior">&#8249;</button><button class="carousel-arrow carousel-next" aria-label="Siguiente">&#8250;</button><div class="carousel-dots">{dots}</div>'.format(dots=dots_html)
+    slides_html = "\n      ".join(slides)
+    return '<section class="hero-carousel" aria-label="Banners destacados"><div class="carousel-viewport"><div class="carousel-track">{slides}</div></div>{nav}</section>'.format(slides=slides_html, nav=nav)
 
 # ---------------------------------------------------------------------------
 # Parser de descripciones completas (columna "Descripcion" del Excel).
@@ -293,6 +322,8 @@ def parse_description(raw_text, sku):
 
 
 MASTER_RECORDS = load_master_products(CONTENT_DIR)
+BANNERS_PATH = os.path.join(ROOT, "content", "home.yml")
+BANNERS = load_banners(BANNERS_PATH)
 
 PRODUCTS = []
 LONG_DESCRIPTIONS = {}
@@ -579,7 +610,7 @@ def build_home():
         </div>
       </div>\n""".format(text=r["text"], initial=initial, author=r["author"])
 
-    body = """<section class="hero">
+    body = ""{banner_section}"<section class="hero">
   <div class="wrap">
     <div>
       <div class="hero-eyebrow">Herramientas para taller mecánico y automotor</div>
@@ -644,7 +675,7 @@ def build_home():
 {reviews}    </div>
   </div>
 </section>""".format(wa=wa_link("Hola, quiero consultar por Britzen"), tiles=cat_tiles, featured=featured,
-                     score=REVIEWS_SCORE, count=REVIEWS_COUNT, reviews_url=REVIEWS_URL, reviews=review_cards, video_section=video_section)
+                     score=REVIEWS_SCORE, count=REVIEWS_COUNT, reviews_url=REVIEWS_URL, reviews=review_cards, video_section=video_section, banner_section=render_banner_carousel(BANNERS))
 
     write("index.html", page("Herramientas para taller mecánico y automotor", "Britzen — extractores, prensas y compresores para taller mecánico y automotor en Argentina. Catálogo y contacto directo por WhatsApp.", "inicio", body, canonical_path=""))
 
