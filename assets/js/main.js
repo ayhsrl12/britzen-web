@@ -141,3 +141,32 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  var track = document.querySelector(".carousel-track");
+  if (!track) return;
+  var slides = track.children;
+  var dots = document.querySelectorAll(".carousel-dot");
+  var prevBtn = document.querySelector(".carousel-prev");
+  var nextBtn = document.querySelector(".carousel-next");
+  var index = 0;
+  var total = slides.length;
+  var timer = null;
+  if (total < 2) return;
+  function goTo(i) {
+    index = (i + total) % total;
+    track.style.transform = "translateX(-" + (index * 100) + "%)";
+    dots.forEach(function (d, di) { d.classList.toggle("is-active", di === index); });
+  }
+  function next() { goTo(index + 1); }
+  function prev() { goTo(index - 1); }
+  function startAuto() { timer = setInterval(next, 5000); }
+  function resetAuto() { clearInterval(timer); startAuto(); }
+  if (prevBtn) prevBtn.addEventListener("click", function () { prev(); resetAuto(); });
+  if (nextBtn) nextBtn.addEventListener("click", function () { next(); resetAuto(); });
+  dots.forEach(function (d, di) {
+    d.addEventListener("click", function () { goTo(di); resetAuto(); });
+  });
+  startAuto();
+});
+
