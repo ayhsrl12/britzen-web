@@ -610,7 +610,7 @@ def build_home():
         </div>
       </div>\n""".format(text=r["text"], initial=initial, author=r["author"])
 
-    body = ""{banner_section}"<section class="hero">
+        body = """{banner_section}<section class="hero">
   <div class="wrap">
     <div>
       <div class="hero-eyebrow">Herramientas para taller mecánico y automotor</div>
