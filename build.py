@@ -746,7 +746,7 @@ def build_quienes_somos():
     </div>
   </div>
 </section>"""
-        if INSTITUTIONAL_PHOTO:
+    if INSTITUTIONAL_PHOTO:
         caption = INSTITUTIONAL_CAPTION or "Operamos desde nuestro depósito propio en Buenos Aires, desde donde despachamos el 90% de las ventas de forma online. Si preferís retirar en persona o ver el producto antes de comprarlo, también atenés en el depósito, coordinándolo antes por WhatsApp."
         body += '''<section class="section">
   <div class="wrap story-grid">
