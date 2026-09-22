@@ -746,6 +746,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .values-grid { grid-template-columns: 1fr; }
   .hero .wrap { grid-template-columns: 1fr; min-height: auto; padding-top: 56px; padding-bottom: 56px; }
   .hero-graphic { order: -1; height: 220px; }
+  .category-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 /* ---------- Reseñas de Google (home) ---------- */
