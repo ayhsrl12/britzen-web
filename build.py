@@ -324,6 +324,16 @@ def parse_description(raw_text, sku):
 MASTER_RECORDS = load_master_products(CONTENT_DIR)
 BANNERS_PATH = os.path.join(ROOT, "content", "home.yml")
 BANNERS = load_banners(BANNERS_PATH)
+def load_yaml_dict(path):
+    import yaml
+    if not os.path.exists(path):
+        return {}
+    with open(path, encoding="utf-8") as f:
+        return yaml.safe_load(f) or {}
+
+HOME_EXTRA = load_yaml_dict(BANNERS_PATH)
+INSTITUTIONAL_PHOTO = HOME_EXTRA.get("institutional_photo") or ""
+INSTITUTIONAL_CAPTION = HOME_EXTRA.get("institutional_caption") or ""
 
 PRODUCTS = []
 LONG_DESCRIPTIONS = {}
@@ -735,9 +745,22 @@ def build_quienes_somos():
       <p>El contacto es directo: cada producto del catálogo tiene su botón de WhatsApp para consultar disponibilidad, precio o asesoramiento antes de comprar.</p>
     </div>
   </div>
-</section>
+</section>"""
+if INSTITUTIONAL_PHOTO:
+        caption = INSTITUTIONAL_CAPTION or "Operamos desde nuestro depósito propio en Buenos Aires, desde donde despachamos el 90% de las ventas de forma online. Si preferís retirar en persona o ver el producto antes de comprarlo, también atenés en el depósito, coordinándolo antes por WhatsApp."
+        body += '''<section class="section">
+  <div class="wrap story-grid">
+    <div class="about-photo">
+      <img src="{src}" alt="Depósito de Accesorios y Herramientas SRL" loading="lazy">
+    </div>
+    <div>
+      <h2>Nuestro depósito</h2>
+      <p>{caption}</p>
+    </div>
+  </div>
+</section>'''.format(src=INSTITUTIONAL_PHOTO, caption=caption)
 
-<section class="section bg-steel">
+    body += """<section class="section bg-steel">
   <div class="wrap">
     <div class="section-head">
       <div>
