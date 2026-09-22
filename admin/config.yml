@@ -69,3 +69,5 @@ collections:
             fields:
               - {label: "Imagen", name: "image", widget: "image"}
               - {label: "Link al hacer clic (opcional)", name: "link", widget: "string", required: false, hint: "A dónde va la persona si toca este banner (ej. https://britzen.com.ar/catalogo.html). Dejar vacío si no querés que sea clickeable."}
+                - {label: "Foto institucional (depósito)", name: "institutional_photo", widget: "image", required: false, hint: "Foto para la página Quiénes somos. Funciona mejor una foto cuadrada."}
+                - {label: "Texto junto a la foto (opcional)", name: "institutional_caption", widget: "text", required: false, hint: "Si lo dejas vacío, se usa un texto por defecto sobre el depósito."}
