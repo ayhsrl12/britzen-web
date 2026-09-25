@@ -6,7 +6,7 @@ import urllib.parse
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE = os.path.join(ROOT, "dist")
-WHATSAPP_NUMBER = "5491166015365"  # +54 9 11 6601-5365
+WHATSAPP_NUMBER = "5491149287469"  # +54 9 11 4928-7469
 EMAIL = "ventas@ayhsrl.com.ar"
 ADDRESS = "Río Cuarto 1636, C1292 — Ciudad Autónoma de Buenos Aires"
 HOURS = "Lunes a viernes de 8 a 17 hs"
