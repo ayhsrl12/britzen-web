@@ -1015,3 +1015,33 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 }
 .about-photo { width: 100%; aspect-ratio: 1 / 1; overflow: hidden; border-radius: var(--radius); box-shadow: 0 20px 50px rgba(11, 11, 11, 0.15); }
 .about-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ---------- Variantes (selector de medidas) ---------- */
+.variant-picker { margin: 0 0 24px; }
+.variant-label { font-size: 14px; color: var(--gray-600); margin-bottom: 10px; }
+.variant-label strong { color: var(--black); }
+.variant-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.variant-btn {
+  font-family: var(--font-display);
+  font-size: 14px;
+  min-width: 64px;
+  padding: 10px 16px;
+  border: 1px solid var(--steel-300);
+  background: var(--white);
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--black);
+}
+.variant-btn:hover { border-color: var(--black); }
+.variant-btn.is-active { background: var(--black); border-color: var(--black); color: var(--white); }
+.variant-btn.is-out { color: var(--gray-600); text-decoration: line-through; }
+.variant-btn.is-out.is-active { color: var(--white); }
+.variant-detail { font-size: 14px; color: var(--gray-600); margin: 12px 0 0; min-height: 20px; }
+.table-scroll { overflow-x: auto; }
+.variants-table { width: 100%; border-collapse: collapse; margin: 0 0 12px; min-width: 520px; }
+.variants-table th { text-align: left; font-size: 13px; color: var(--black); padding: 10px 12px; border-bottom: 2px solid var(--steel-300); }
+.variants-table td { font-size: 14px; color: var(--gray-600); padding: 11px 12px; border-bottom: 1px solid var(--steel-200); vertical-align: top; }
+.variants-table td:first-child { color: var(--black); font-weight: 600; white-space: nowrap; }
+.variant-ask { color: var(--blue-dark); font-weight: 600; white-space: nowrap; }
+.variant-ask:hover { text-decoration: underline; }
+.variants-note { font-size: 13px; color: var(--gray-600); }
