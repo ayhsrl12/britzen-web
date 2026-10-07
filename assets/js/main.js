@@ -71,6 +71,12 @@ document.addEventListener("DOMContentLoaded", function () {
     return location.pathname.indexOf("/producto/") !== -1;
   }
 
+  function matchedSku(p, q) {
+    var hit = null;
+    (p.skus || []).forEach(function (s) { if (!hit && normalize(s).indexOf(q) !== -1) hit = s; });
+    return hit;
+  }
+
   function renderResults(query) {
     var data = window.SEARCH_DATA || [];
     var q = normalize(query.trim());
@@ -79,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
     var matches = data.filter(function (p) {
-      return normalize(p.sku).indexOf(q) !== -1 || normalize(p.title).indexOf(q) !== -1;
+      return normalize(p.sku).indexOf(q) !== -1 || normalize(p.title).indexOf(q) !== -1 || !!matchedSku(p, q);
     }).slice(0, 8);
 
     if (!matches.length) {
@@ -91,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return '<a class="search-result" href="' + prefix + p.slug + '.html">' +
         '<span class="search-result-cat">' + p.category + '</span>' +
         '<span class="search-result-title">' + p.title + '</span>' +
-        '<span class="search-result-sku">Cód. ' + p.sku + '</span>' +
+        '<span class="search-result-sku">Cód. ' + (matchedSku(p, q) || p.sku) + '</span>' +
         '</a>';
     }).join("");
   }
@@ -170,3 +176,50 @@ document.addEventListener("DOMContentLoaded", function () {
   startAuto();
 });
 
+
+// Selector de medidas (productos con variantes)
+document.addEventListener("DOMContentLoaded", function () {
+  var picker = document.getElementById("variant-picker");
+  if (!picker) return;
+  var buttons = picker.querySelectorAll(".variant-btn");
+  if (!buttons.length) return;
+  var skuEl = document.getElementById("detail-sku");
+  var priceEl = document.getElementById("price-line");
+  var waEl = document.getElementById("wa-main");
+  var mlEl = document.getElementById("ml-link");
+  var curEl = document.getElementById("variant-current");
+  var detEl = document.getElementById("variant-detail");
+
+  function select(btn) {
+    buttons.forEach(function (b) { b.classList.toggle("is-active", b === btn); });
+    var price = btn.getAttribute("data-price");
+    var out = btn.getAttribute("data-out") === "1";
+    if (curEl) curEl.textContent = btn.getAttribute("data-label");
+    if (skuEl) skuEl.textContent = btn.getAttribute("data-sku");
+    if (priceEl) {
+      priceEl.innerHTML = price
+        ? '<span class="price-amount">' + price + '</span><span class="tag">Mejor precio por WhatsApp</span>'
+        : '<span class="price-amount price-soon">Precio a consultar</span><span class="tag">Consultá disponibilidad</span>';
+    }
+    if (detEl) {
+      var parts = [];
+      if (btn.getAttribute("data-detail")) parts.push(btn.getAttribute("data-detail"));
+      if (out) parts.push("Sin stock por el momento, consultá reposición");
+      detEl.textContent = parts.join(" · ");
+    }
+    if (waEl) waEl.setAttribute("href", btn.getAttribute("data-wa"));
+    if (mlEl) {
+      var ml = btn.getAttribute("data-ml");
+      if (ml) { mlEl.setAttribute("href", ml); mlEl.style.display = ""; }
+      else { mlEl.style.display = "none"; }
+    }
+  }
+
+  buttons.forEach(function (b) {
+    b.addEventListener("click", function () { select(b); });
+  });
+
+  var first = null;
+  buttons.forEach(function (b) { if (!first && b.getAttribute("data-out") !== "1") first = b; });
+  select(first || buttons[0]);
+});
