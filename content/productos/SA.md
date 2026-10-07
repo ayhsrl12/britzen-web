@@ -1,7 +1,9 @@
 ---
 sku: SA
-title: Fresa Lima Rotativa Metal Duro Cilíndrica Punta Plana
+title: Lima Rotativa Metal Duro Cilíndrica Punta Plana
 category: Limas Rotativas
+photos:
+  - /assets/img/productos/sa.jpg
 variants:
   - label: 4 mm
     sku: SA30413
