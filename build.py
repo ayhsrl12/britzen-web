@@ -109,6 +109,7 @@ def load_master_products(content_dir):
             "price": front.get("price") or None,
             "mla": str(front["mla"]).strip() if front.get("mla") else None,
             "photos": photos,
+            "variants": front.get("variants") or [],
         })
     return records
 def load_banners(path):
@@ -324,6 +325,88 @@ def parse_description(raw_text, sku):
 MASTER_RECORDS = load_master_products(CONTENT_DIR)
 BANNERS_PATH = os.path.join(ROOT, "content", "home.yml")
 BANNERS = load_banners(BANNERS_PATH)
+def fmt_price(v):
+    try:
+        v = float(v)
+    except (TypeError, ValueError):
+        return ""
+    txt = "{:,.0f}".format(v) if v == int(v) else "{:,.2f}".format(v)
+    return "$" + txt.replace(",", "X").replace(".", ",").replace("X", ".")
+
+
+def normalize_variants(raw):
+    out = []
+    for v in raw or []:
+        if not isinstance(v, dict):
+            continue
+        label = str(v.get("label") or "").strip()
+        sku = str(v.get("sku") or "").strip()
+        if not label or not sku:
+            continue
+        price = v.get("price")
+        out.append({
+            "label": label,
+            "sku": sku,
+            "price": price if price not in (None, "", 0) else None,
+            "detail": str(v.get("detail") or "").strip(),
+            "out": bool(v.get("out_of_stock")),
+            "mla": str(v["mla"]).strip() if v.get("mla") else None,
+        })
+    return out
+
+
+def card_code(p):
+    return "Varias medidas" if p.get("variants") else "Cód. " + p["sku"]
+
+
+def variant_context(p, price_html, ml_block):
+    import html
+    vs = p.get("variants") or []
+    if not vs:
+        return {"picker": "", "section": "", "price_html": price_html, "ml_block": ml_block}
+    esc = lambda s: html.escape(str(s), quote=True)
+    price_html = '<span class="price-amount price-soon">Precio a consultar</span><span class="tag">Elegí una medida</span>'
+    ml_block = '<a class="ml-secondary" id="ml-link" href="#" target="_blank" rel="noopener" style="display:none">Ver publicación en Mercado Libre ↗</a>'
+    buttons, rows = [], []
+    for v in vs:
+        wa = wa_link("Hola, quiero consultar por: {} - Medida {} (Cód. {})".format(p["title"], v["label"], v["sku"]))
+        ml = "https://articulo.mercadolibre.com.ar/{}".format(v["mla"]) if v["mla"] else ""
+        price_txt = fmt_price(v["price"]) if v["price"] else ""
+        buttons.append(
+            '<button type="button" class="variant-btn{out}" data-sku="{sku}" data-label="{label}" '
+            'data-price="{price}" data-detail="{detail}" data-wa="{wa}" data-ml="{ml}" data-out="{o}">{label}</button>'.format(
+                out=" is-out" if v["out"] else "", sku=esc(v["sku"]), label=esc(v["label"]), price=esc(price_txt),
+                detail=esc(v["detail"]), wa=esc(wa), ml=esc(ml), o="1" if v["out"] else "0"))
+        detail_cell = esc(v["detail"]) + (" · Sin stock por el momento" if v["out"] else "")
+        rows.append(
+            '<tr><td data-th="Medida">{label}</td><td data-th="Código">{sku}</td><td data-th="Detalle">{detail}</td>'
+            '<td data-th="Precio">{price}</td><td><a class="variant-ask" href="{wa}" target="_blank" rel="noopener">Consultar</a></td></tr>'.format(
+                label=esc(v["label"]), sku=esc(v["sku"]), detail=detail_cell,
+                price=esc(price_txt) if price_txt else "A consultar", wa=esc(wa)))
+    picker = (
+        '<div class="variant-picker" id="variant-picker">\n'
+        '      <div class="variant-label">Medida: <strong id="variant-current">—</strong></div>\n'
+        '      <div class="variant-options">{buttons}</div>\n'
+        '      <p class="variant-detail" id="variant-detail"></p>\n'
+        '    </div>'
+    ).format(buttons="\n        ".join(buttons))
+    section = (
+        '<section class="section">\n'
+        '  <div class="wrap" style="max-width:860px;">\n'
+        '    <h2 style="font-size:24px; margin-bottom:24px;">Medidas y códigos disponibles</h2>\n'
+        '    <div class="table-scroll">\n'
+        '      <table class="variants-table">\n'
+        '        <thead><tr><th>Medida</th><th>Código</th><th>Detalle</th><th>Precio</th><th></th></tr></thead>\n'
+        '        <tbody>\n          {rows}\n        </tbody>\n'
+        '      </table>\n'
+        '    </div>\n'
+        '    <p class="variants-note">Los precios pueden variar. Consultanos por WhatsApp para confirmar disponibilidad.</p>\n'
+        '  </div>\n'
+        '</section>'
+    ).format(rows="\n          ".join(rows))
+    return {"picker": picker, "section": section, "price_html": price_html, "ml_block": ml_block}
+
+
 def load_yaml_dict(path):
     import yaml
     if not os.path.exists(path):
@@ -365,6 +448,7 @@ for rec in MASTER_RECORDS:
         "price": rec["price"],
         "mla": rec["mla"],
         "photos": rec.get("photos") or [],
+        "variants": normalize_variants(rec.get("variants")),
     }
     PRODUCTS.append(p)
 
@@ -554,9 +638,9 @@ def product_card(p, depth=""):
         <div class="product-info">
           <div class="product-cat">{cat}</div>
           <div class="product-name">{title}</div>
-          <div class="product-sku">Cód. {sku}</div>
+          <div class="product-sku">{sku}</div>
         </div>
-      </a>""".format(d=depth, slug=p["slug"], cat=p["category"], title=p["title"], sku=p["sku"],
+      </a>""".format(d=depth, slug=p["slug"], cat=p["category"], title=p["title"], sku=card_code(p),
                      media=product_media(p, depth))
 
 
@@ -570,7 +654,7 @@ def build_home():
         "Frenos": "1037", "Prensa Válvula": "1001", "Extractor": "1147",
         "Torquímetro": "8512", "Juego de Llaves": "1002", "Sondas": "1905",
         "Fresador": "1364", "Refrigeración": "8971", "Vacuómetro": "1173",
-        "Morsa": "NEVIS-03",
+        "Morsa": "NEVIS-03", "Limas Rotativas": "SA",
     }
     cat_tiles = ""
     for c in CATEGORIES:
@@ -895,6 +979,8 @@ def build_products():
 
         ml_block = '<a class="ml-secondary" href="{ml}" target="_blank" rel="noopener">Ver publicación en Mercado Libre ↗</a>'.format(ml=p["ml_url"]) if p["ml_url"] else ""
 
+        vctx = variant_context(p, price_html, ml_block)
+        price_html, ml_block = vctx["price_html"], vctx["ml_block"]
         body = """<div class="wrap breadcrumb">
   <a href="../catalogo.html">Catálogo</a> / <span>{cat}</span> / <span>{title}</span>
 </div>
@@ -906,16 +992,17 @@ def build_products():
     <h1>{title}</h1>
 
     <div class="detail-meta">
-      <div><span>Código</span><strong>{sku}</strong></div>
+      <div><span>Código</span><strong id="detail-sku">{sku}</strong></div>
       <div><span>Categoría</span><strong>{cat}</strong></div>
     </div>
 
     {short_desc_html}
 
-    <div class="price-line">{price_html}</div>
+    {variant_picker}
+    <div class="price-line" id="price-line">{price_html}</div>
 
     <div class="detail-actions">
-      <a class="btn btn-primary" href="{wa}" target="_blank" rel="noopener">
+      <a class="btn btn-primary" id="wa-main" href="{wa}" target="_blank" rel="noopener">
         <svg class="wa-icon" viewBox="0 0 32 32">{wa_path}</svg>
         Consultar por WhatsApp
       </a>
@@ -923,6 +1010,8 @@ def build_products():
     </div>
   </div>
 </section>
+
+{variants_section}
 
 {full_desc_section}
 
@@ -939,6 +1028,7 @@ def build_products():
             wa=wa_link("Hola, quiero consultar por: " + p["title"] + " (Cód. " + p["sku"] + ")"),
             wa_path=WHATSAPP_ICON.split(">", 1)[1].rsplit("</svg", 1)[0],
             ml_block=ml_block, related=related_cards, price_html=price_html,
+            variant_picker=vctx["picker"], variants_section=vctx["section"],
         )
 
         product_og_image = "{}{}".format(SITE_URL, p["photos"][0]) if has_photo(p) else ""
@@ -949,7 +1039,8 @@ def build_products():
 def build_search_data():
     import json
     data = [
-        {"sku": p["sku"], "title": p["title"], "category": p["category"], "slug": p["slug"]}
+        {"sku": p["sku"], "title": p["title"], "category": p["category"], "slug": p["slug"],
+         "skus": [v["sku"] for v in p.get("variants", [])]}
         for p in PRODUCTS
     ]
     js = "window.SEARCH_DATA = " + json.dumps(data, ensure_ascii=False) + ";\n"
