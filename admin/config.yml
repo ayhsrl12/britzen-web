@@ -25,6 +25,7 @@ collections:
         widget: "select"
         options:
           - "Prensa Válvula"
+          - "Limas Rotativas"
           - "Juego de Llaves"
           - "Compresómetro"
           - "Estetoscopio"
