@@ -28,7 +28,7 @@ variants:
   - out_of_stock: false
     label: 10 mm
     sku: SG61020
-    price: 16789.5
+    price: 16879.5
     detail: Largo de corte 20 mm · Vástago Ø6 mm · Largo total 65 mm
   - out_of_stock: false
     label: 12 mm
