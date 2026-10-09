@@ -1,7 +1,7 @@
 banners:
   - image: /assets/img/productos/banner-torquimetros.png
     link: https://britzen.com.ar/catalogo#torquimetro
-  - image: /assets/img/productos/limas.png
+  - image: https://www.ayhsrl.com.ar/search/?q=limas
   - image: /assets/img/productos/banner-compresometros.png
     link: https://britzen.com.ar/catalogo#compresometro
   - image: /assets/img/productos/banner-extractores-.png
