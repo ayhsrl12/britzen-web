@@ -1,8 +1,9 @@
 banners:
-  - image: /assets/img/productos/banner-compresometros.png
-    link: https://britzen.com.ar/catalogo#compresometro
   - image: /assets/img/productos/banner-torquimetros.png
     link: https://britzen.com.ar/catalogo#torquimetro
+  - image: /assets/img/productos/limas.png
+  - image: /assets/img/productos/banner-compresometros.png
+    link: https://britzen.com.ar/catalogo#compresometro
   - image: /assets/img/productos/banner-extractores-.png
     link: https://britzen.com.ar/catalogo#extractor
   - image: /assets/img/productos/banner-prensa-valvulas.png
@@ -11,6 +12,5 @@ banners:
     link: https://britzen.com.ar/catalogo#bomba-trasvase
   - image: /assets/img/productos/banner-refrigeracion.png
     link: https://britzen.com.ar/catalogo#refrigeracion
-  - image: /assets/img/productos/limas.png
   - image: /assets/img/productos/chatgpt-image-21-sept-2026-09_26_59.png
 institutional_photo: /assets/img/productos/whatsapp-image-2026-09-22-at-08.59.53.jpeg
