@@ -2,7 +2,7 @@
 sku: NEVIS-20
 title: Bomba Rotativa Manual Trasvase 200 Lts Aluminio
 category: Bomba Trasvase
-price: 38456
+price: 38440
 mla: MLA-1867378031
 photos:
   - /assets/img/productos/NEVIS-20-1.jpg
