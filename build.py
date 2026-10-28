@@ -299,6 +299,12 @@ def parse_description(raw_text, sku):
             else:
                 blocks.append({"type": "paragraph", "heading": SECTION_LABELS[stype], "text": content})
             continue
+        if stype == "contenido_kit":
+            kit_items = [ln.strip(" -•*") for ln in content.splitlines()]
+            kit_items = [k for k in kit_items if k]
+            if len(kit_items) >= 2 and not any(":" in k for k in kit_items):
+                blocks.append({"type": "list", "heading": SECTION_LABELS[stype], "items": kit_items})
+                continue
         if stype in ("caracteristicas", "contenido_kit", "accesorios", "presentacion", "ventajas", "puntos_clave", "recomendaciones", "usos"):
             specs = parse_specs(content)
             # Salvaguarda: si el "parseo" da pocos pares o valores sospechosamente
@@ -937,6 +943,9 @@ def render_long_description(ld):
                 for i, txt in enumerate(block["items"])
             )
             parts.append('{heading}\n    <ul class="positions-list">\n      {items}\n    </ul>'.format(heading=heading, items=items))
+        elif block["type"] == "list":
+            lis = "".join("<li>{}</li>".format(i) for i in block["items"])
+            parts.append('{h}<ul class="kit-list" style="margin:0 0 24px; padding-left:22px; color:var(--gray-600); line-height:1.8;">{lis}</ul>'.format(h=heading, lis=lis))
         else:  # paragraph
             parts.append('{heading}\n    <p style="margin-bottom:24px; color:var(--gray-600);">{text}</p>'.format(heading=heading, text=block["text"]))
 
