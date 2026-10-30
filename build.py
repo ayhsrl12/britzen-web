@@ -202,12 +202,27 @@ def find_sections(text):
     for stype, phrase, _label in SECTION_KEYWORDS:
         for m in re.finditer(r'\b(?:' + phrase + r')\b[^:]{0,60}:', text, re.IGNORECASE):
             matches.append((m.start(), m.end(), stype))
+    if chr(10) in text:
+        for m in re.finditer(r'(?m)^[ ]*([A-ZÁÉÍÓÚÑ][A-ZÁÉÍÓÚÑ ]{3,}[A-ZÁÉÍÓÚÑ](?: [(].*?[)])?):[ ]*$', text):
+            heading = m.group(1)
+            if any(re.match(r'(?:' + phrase + r')(?![A-Za-zÁÉÍÓÚÑ])', heading, re.IGNORECASE) for _k, phrase, _l in SECTION_KEYWORDS):
+                continue
+            cut = heading.find("(")
+            label = heading[0] + heading[1:].lower() if cut == -1 else heading[0] + heading[1:cut].lower() + heading[cut:]
+            key = "custom:" + heading
+            SECTION_LABELS[key] = label
+            matches.append((m.start(1), m.end(), key))
     matches.sort()
     filtered = []
     last_end = -1
     for start, end, stype in matches:
         if start < last_end:
             continue
+        if chr(10) in text and filtered and filtered[-1][2] == "caracteristicas" and stype != "caracteristicas" and not stype.startswith("custom:"):
+            eol = text.find(chr(10), end)
+            same_line = text[end:eol if eol != -1 else len(text)].strip()
+            if same_line and not text[start:end].isupper():
+                continue
         filtered.append((start, end, stype))
         last_end = end
     intro = text[:filtered[0][0]].strip() if filtered else text.strip()
@@ -935,7 +950,7 @@ def render_long_description(ld):
     for block in ld["blocks"]:
         heading = '<h3 class="detail-section-title">{}</h3>'.format(block["heading"]) if block.get("heading") else ""
         if block["type"] == "specs":
-            rows = "\n      ".join("<tr><td>{}</td><td>{}</td></tr>".format(k, v) for k, v in block["rows"])
+            rows = "\n      ".join("<tr><td>{}</td><td>{}</td></tr>".format(k, v.replace(chr(10), "<br>")) for k, v in block["rows"])
             parts.append('{heading}\n    <table class="spec-table">\n      {rows}\n    </table>'.format(heading=heading, rows=rows))
         elif block["type"] == "numbered":
             items = "\n      ".join(
