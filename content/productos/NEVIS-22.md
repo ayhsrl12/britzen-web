@@ -2,7 +2,7 @@
 sku: NEVIS-22
 title: Bomba a Palanca Trasvase Plastica para Acidos y Corrosivos
 category: Bomba Trasvase
-price: 43136
+price: 44528
 mla: MLA-2038662017
 photos:
   - /assets/img/productos/NEVIS-22-1.jpg
