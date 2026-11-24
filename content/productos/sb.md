@@ -18,7 +18,7 @@ variants:
   - out_of_stock: false
     label: 6 mm
     sku: SB60616
-    price: 8912
+    price: 9469
     detail: Largo de corte 16 mm · Vástago Ø6 mm · Largo total 61 mm
   - out_of_stock: false
     label: 8 mm

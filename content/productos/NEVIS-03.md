@@ -2,7 +2,7 @@
 sku: NEVIS-03
 title: Morsa de Banco Giratoria 125 Mm Numero 5 con Yunque
 category: Morsa
-price: 71632
+price: 76109
 mla: MLA-3579400098
 photos:
 - /assets/img/productos/NEVIS-03-1.jpg

@@ -2,7 +2,7 @@
 sku: NEVIS-72
 title: Morsa para Fijar Giratoria 60 Mm con Yunque
 category: Morsa
-price: 23232
+price: 24684
 mla: MLA-3834319350
 photos:
 - /assets/img/productos/NEVIS-72-1.jpg
