@@ -2,7 +2,7 @@
 sku: NEVIS-21
 title: Bomba Rotativa Manual Trasvase 200 Lts Hierro Fundido
 category: Bomba Trasvase
-price: 60016
+price: 63767
 mla: MLA-2041104401
 photos:
   - /assets/img/productos/NEVIS-21-1.jpg

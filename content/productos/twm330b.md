@@ -2,7 +2,7 @@
 sku: TWM330B
 title: TORQUIMETRO DE SAFE 1/2 33 KGM CERTIFICADO ACCUD
 category: Torquímetro
-price: 164560
+price: 174845
 mla: MLA-3770520834
 photos:
   - /assets/img/productos/twm330b-1-.png

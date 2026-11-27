@@ -2,7 +2,7 @@
 sku: NEVIS-02
 title: Morsa de Banco Giratoria 100 Mm Numero 4 con Yunque
 category: Morsa
-price: 52272
+price: 55539
 mla: MLA-1884860265
 photos:
 - /assets/img/productos/NEVIS-02-1.jpg
